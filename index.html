@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GATE Prep Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <h1>GATE Prep Tracker</h1>
+        <nav>
+          <button class="nav-item active" data-view="dashboard">Dashboard</button>
+          <button class="nav-item" data-view="subjects">Subjects</button>
+          <button class="nav-item" data-view="daily">Daily Update</button>
+          <button class="nav-item" data-view="tests">Test Scores</button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <section class="view" id="dashboard-view">
+          <div class="card-grid stats" id="stat-cards"></div>
+          <div class="card-grid two-col">
+            <article class="card">
+              <h3>Lecture Completion</h3>
+              <div class="progress-wrap"><div class="progress" id="lecture-progress"></div></div>
+              <p id="lecture-progress-label"></p>
+            </article>
+            <article class="card">
+              <h3>PYQ Completion</h3>
+              <div class="progress-wrap"><div class="progress" id="pyq-progress"></div></div>
+              <p id="pyq-progress-label"></p>
+            </article>
+          </div>
+          <div class="card-grid two-col">
+            <article class="card">
+              <h3>Recent Activity</h3>
+              <ul id="recent-activity" class="activity-list"></ul>
+            </article>
+            <article class="card">
+              <h3>Progress Trends</h3>
+              <canvas id="overall-trend"></canvas>
+            </article>
+          </div>
+        </section>
+
+        <section class="view hidden" id="subjects-view">
+          <div class="card">
+            <h2>Add Subject</h2>
+            <form id="subject-form" class="form-grid">
+              <input name="name" placeholder="Subject (e.g., DBMS)" required />
+              <input type="number" name="totalLectures" placeholder="Total lectures" min="0" required />
+              <input type="number" name="totalPyqs" placeholder="Total PYQs" min="0" required />
+              <button type="submit">Add Subject</button>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Subjects & Topics</h2>
+            <input id="topic-search" placeholder="Search subjects/topics" />
+            <div id="subject-list"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="daily-view">
+          <div class="card">
+            <h2>Daily Progress Log</h2>
+            <form id="daily-form" class="form-grid">
+              <select name="subjectId" id="daily-subject" required></select>
+              <select name="topicId" id="daily-topic" required></select>
+              <input type="number" name="lecturesCompleted" placeholder="Lectures completed today" min="0" value="0" required />
+              <input type="number" name="pyqsSolved" placeholder="PYQs solved today" min="0" value="0" required />
+              <input type="number" step="0.5" name="studyHours" placeholder="Study hours (optional)" min="0" />
+              <input type="url" name="lectureLink" placeholder="Lecture link watched today (optional)" />
+              <button type="submit">Save Daily Update</button>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Lecture Links by Topic</h2>
+            <div id="lecture-links"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="tests-view">
+          <div class="card">
+            <h2>Add Mock Test</h2>
+            <form id="test-form" class="form-grid">
+              <input name="name" placeholder="Test name" required />
+              <input type="number" name="score" placeholder="Score" min="0" required />
+              <input type="number" name="total" placeholder="Total marks" min="1" required />
+              <input type="date" name="date" required />
+              <button type="submit">Add Test</button>
+            </form>
+          </div>
+          <div class="card">
+            <h2>Test Score Trend</h2>
+            <canvas id="test-trend"></canvas>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
